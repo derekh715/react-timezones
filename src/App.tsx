@@ -1,10 +1,13 @@
 import { Fragment } from "react";
+import LargeDisplay from "./components/LargeDisplay";
+import Nav from "./components/layout/Nav";
 import "./index.css";
 
 function App() {
   return (
     <Fragment>
-      <h1>React Timezones</h1>
+      <Nav />
+      <LargeDisplay />
     </Fragment>
   );
 }
