@@ -1,3 +1,4 @@
+import "leaflet/dist/leaflet.css";
 import { Fragment, useState } from "react";
 import Nav from "./components/layout/Nav";
 import TimezoneInfoModal from "./components/modal/TimezoneInfoModal";
