@@ -1,12 +1,10 @@
-import { LatLngExpression } from "leaflet";
 import { MapContainer, TileLayer } from "react-leaflet";
+import { defaultCenter } from "../../store/rootStore";
 import MapClickDetector from "./MapClickDetector";
 
 interface LeafletMapProps {
   className: string;
 }
-
-const defaultCenter: LatLngExpression = [24.02, 121.38];
 
 function LeaftletMap({ className }: LeafletMapProps) {
   return (

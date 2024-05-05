@@ -1,18 +1,24 @@
 import { LatLng } from "leaflet";
-import { useState } from "react";
 import { Marker, useMapEvent } from "react-leaflet";
+import { useRootStore } from "../../store/rootStore";
 
 function MapClickDetector() {
-  const [location, setLocation] = useState<null | LatLng>(null);
+  const { chooseLocation, position } = useRootStore((state) => ({
+    chooseLocation: state.chooseLocation,
+    position:
+      !state.form.lat || !state.form.lng
+        ? null
+        : new LatLng(state.form.lat, state.form.lng),
+  }));
 
   useMapEvent("click", (event) => {
-    setLocation(event.latlng);
+    chooseLocation(event);
   });
 
-  if (!location) {
+  if (!position) {
     return null;
   } else {
-    return <Marker position={location}></Marker>;
+    return <Marker position={position}></Marker>;
   }
 }
 
