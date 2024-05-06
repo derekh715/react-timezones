@@ -1,6 +1,8 @@
 import { LatLng, LatLngTuple, LeafletMouseEvent } from "leaflet";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+import { GeoapifyTimezone } from "../types";
+import { getTimezoneByLatlng } from "../utils/geoapify";
 
 export interface RootState {
   modalVisible: boolean;
@@ -8,6 +10,7 @@ export interface RootState {
   dismissModal: () => void;
   chooseLocation: (event: LeafletMouseEvent) => void;
   form: FormValues;
+  timezoneInfo?: GeoapifyTimezone;
   updateForm: (name: keyof FormValues, value: string) => void;
 }
 
@@ -46,12 +49,31 @@ export const useRootStore = create<RootState>()(
     dismissModal: () => {
       set((state) => {
         state.modalVisible = false;
+        state.form = {
+          lat: undefined,
+          lng: undefined,
+          country: "",
+          city: "",
+        };
+        state.timezoneInfo = undefined;
       });
     },
-    chooseLocation: (event: LeafletMouseEvent) => {
+    chooseLocation: async (event: LeafletMouseEvent) => {
+      const result = await getTimezoneByLatlng(
+        event.latlng.lat,
+        event.latlng.lng
+      );
+
+      if (!result) {
+        return;
+      }
+
       set((state) => {
         state.form.lat = event.latlng.lat;
         state.form.lng = event.latlng.lng;
+        state.form.city = result.city;
+        state.form.country = result.country;
+        state.timezoneInfo = result.timezone;
       });
     },
     updateForm: (name: FormNames, value: string) => {
