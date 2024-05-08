@@ -1,27 +1,16 @@
-import { TimezoneInfo } from "../../types";
+import { useRootStore } from "../../store/rootStore";
 import AddNewTimezone from "./AddNewTimezone";
 import SavedTimezone from "./SavedTimeZone";
 
-// temporary
-const timezones: TimezoneInfo[] = [
-  {
-    country: "Country1",
-    city: "City1",
-  },
-  {
-    country: "Country2",
-    city: "City2",
-  },
-];
-
 function SavedTimeZonesList() {
+  const timezoneInfos = useRootStore((state) => state.timezoneInfos);
   return (
     <div>
       <h2 className="text-3xl font-bold mb-4 animate-move-up">
         Saved Timezones
       </h2>
       <div className="grid grid-cols-4 gap-4">
-        {timezones.map((info) => {
+        {timezoneInfos.map((info) => {
           return <SavedTimezone info={info} />;
         })}
         <AddNewTimezone />
