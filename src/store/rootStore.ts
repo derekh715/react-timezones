@@ -21,20 +21,28 @@ export type OptionalFormValues = PartialBy<FormValues, "lat" | "lng">;
 
 export type FormNames = keyof FormValues;
 
+export type ModalMode = "add" | "edit" | "delete" | "none";
+
 export interface RootState {
-  openModal: () => void;
+  openModal: (mode: ModalMode) => void;
   dismissModal: () => void;
   chooseLocation: (event: LeafletMouseEvent) => void;
   submit: () => void;
+  change: () => void;
   updateForm: (name: keyof FormValues, value: string) => void;
+  updateEditForm: (name: keyof FormValues, value: string) => void;
   setSelectedInfo: (index: number) => void;
   toggleShowSeconds: () => void;
+  deleteSelectedInfo: () => void;
 
-  modalVisible: boolean;
+  modalMode: ModalMode;
   timezoneInfos: TimezoneInfo[];
   form: OptionalFormValues;
+  editForm: OptionalFormValues;
   timezoneInfo?: GeoapifyTimezone;
   fieldErrors: typeToFlattenedError<FormValues>["fieldErrors"];
+  editFieldErrors: typeToFlattenedError<FormValues>["fieldErrors"];
+  editTimezoneInfo?: GeoapifyTimezone;
   selectedInfo: number;
   showSeconds: boolean;
 }
@@ -52,27 +60,38 @@ export const useRootStore = create<RootState>()(
   persist(
     immer((set) => ({
       timezoneInfos: [],
-      modalVisible: false,
+      modalMode: "none",
       form: {
         lat: undefined,
         lng: undefined,
         country: "",
         city: "",
       },
-      openModal: () => {
+      editForm: {
+        lat: undefined,
+        lng: undefined,
+        country: "",
+        city: "",
+      },
+      openModal: (mode: ModalMode) => {
         set((state) => {
-          state.modalVisible = true;
+          state.modalMode = mode;
+          if (mode === "edit") {
+            state.editForm = state.timezoneInfos[state.selectedInfo];
+          }
         });
       },
       dismissModal: () => {
         set((state) => {
-          state.modalVisible = false;
-          state.form = {
-            lat: undefined,
-            lng: undefined,
-            country: "",
-            city: "",
-          };
+          if (state.modalMode === "add" || state.modalMode === "edit") {
+            state.form = {
+              lat: undefined,
+              lng: undefined,
+              country: "",
+              city: "",
+            };
+          }
+          state.modalMode = "none";
           state.timezoneInfo = undefined;
         });
       },
@@ -87,11 +106,19 @@ export const useRootStore = create<RootState>()(
         }
 
         set((state) => {
-          state.form.lat = event.latlng.lat;
-          state.form.lng = event.latlng.lng;
-          state.form.city = result.city;
-          state.form.country = result.country;
-          state.timezoneInfo = result.timezone;
+          if (state.modalMode === "add") {
+            state.form.lat = event.latlng.lat;
+            state.form.lng = event.latlng.lng;
+            state.form.city = result.city;
+            state.form.country = result.country;
+            state.timezoneInfo = result.timezone;
+          } else if (state.modalMode === "edit") {
+            state.editForm.lat = event.latlng.lat;
+            state.editForm.lng = event.latlng.lng;
+            state.editForm.city = result.city;
+            state.editForm.country = result.country;
+            state.editTimezoneInfo = result.timezone;
+          }
         });
       },
       updateForm: (name: FormNames, value: string) => {
@@ -105,7 +132,19 @@ export const useRootStore = create<RootState>()(
           });
         }
       },
+      updateEditForm: (name: FormNames, value: string) => {
+        if (name === "lat" || name === "lng") {
+          set((state) => {
+            state.editForm[name] = parseFloat(value);
+          });
+        } else {
+          set((state) => {
+            state.editForm[name] = value;
+          });
+        }
+      },
       fieldErrors: {},
+      editFieldErrors: {},
       submit: () => {
         set((state) => {
           const result = formSchema.safeParse(state.form);
@@ -118,7 +157,21 @@ export const useRootStore = create<RootState>()(
             ...result.data!,
             timezone: state.timezoneInfo!,
           });
-          state.modalVisible = false;
+          state.modalMode = "none";
+        });
+      },
+      change: () => {
+        set((state) => {
+          const result = formSchema.safeParse(state.editForm);
+          if (!result.success) {
+            state.editFieldErrors = result.error.flatten().fieldErrors;
+          }
+          // add new result
+          state.timezoneInfos[state.selectedInfo] = {
+            ...result.data!,
+            timezone: state.editTimezoneInfo!,
+          };
+          state.modalMode = "none";
         });
       },
       selectedInfo: -1,
@@ -133,7 +186,29 @@ export const useRootStore = create<RootState>()(
         });
       },
       showSeconds: false,
+      deleteSelectedInfo: () => {
+        set((state) => {
+          state.timezoneInfos.splice(state.selectedInfo, 1);
+          state.selectedInfo = -1;
+        });
+      },
     })),
     { name: "state" }
   )
 );
+
+export const getSelectedInfo = (state: RootState) => {
+  if (
+    state.selectedInfo >= 0 &&
+    state.selectedInfo < state.timezoneInfos.length
+  ) {
+    return state.timezoneInfos[state.selectedInfo];
+  } else {
+    return null;
+  }
+};
+
+export const useSelectedInfo = () =>
+  useRootStore((state) => {
+    return getSelectedInfo(state);
+  });

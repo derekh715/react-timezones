@@ -1,10 +1,10 @@
 import Modal from "../reusables/Modal";
-import AddTimezoneInfoForm from "./AddTimezoneInfoForm";
+import EditTimezoneInfoForm from "./EditTimezoneInfoForm";
 import LeaftletMap from "./LeaftletMap";
 
-function TimezoneInfoModal() {
+function EditTimezoneInfoModal() {
   return (
-    <Modal mode={"add"}>
+    <Modal mode={"edit"}>
       <h2 className="mt-6 mb-6 font-bold text-3xl">Add New Timezone</h2>
       <div className="grid grid-cols-3 gap-4">
         <div className="col-start-1 col-end-3">
@@ -13,10 +13,10 @@ function TimezoneInfoModal() {
           </p>
           <LeaftletMap className="h-[90%]" />
         </div>
-        <AddTimezoneInfoForm />
+        <EditTimezoneInfoForm />
       </div>
     </Modal>
   );
 }
 
-export default TimezoneInfoModal;
+export default EditTimezoneInfoModal;

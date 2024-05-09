@@ -1,7 +1,12 @@
-import { useRootStore } from "../../store/rootStore";
+import { GeoapifyTimezone } from "../../types";
 
-function TimezoneInfoDisplay() {
-  const { timezoneInfo } = useRootStore();
+interface TimezoneInfoDisplayProps {
+  geoapifyTimezone?: GeoapifyTimezone;
+}
+
+function TimezoneInfoDisplay({
+  geoapifyTimezone: timezoneInfo,
+}: TimezoneInfoDisplayProps) {
   return (
     <p className="my-4 py-3 px-6 bg-secondary-600 text-white text-lg font-semibold rounded-md shadow-md">
       The timezone will be:
