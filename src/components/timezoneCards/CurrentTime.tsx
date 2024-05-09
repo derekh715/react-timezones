@@ -1,13 +1,18 @@
+import Clock from "react-live-clock";
+import { TimezoneInfo } from "../../types";
+
 interface TimeDisplayProps {
   className: string;
+  info: TimezoneInfo;
 }
 
-function TimeDisplay({ className }: TimeDisplayProps) {
+function TimeDisplay({ className, info: { timezone } }: TimeDisplayProps) {
   return (
-    <span className={"cursor-pointer block " + className} title="Show Seconds">
-      <span>13</span>
-      <span className="animate-blink">:</span>
-      <span>04</span>
+    <span
+      className={"cursor-pointer block " + className}
+      title="Click to show seconds"
+    >
+      <Clock ticking format="HH:mm:ss" timezone={timezone.name} />
     </span>
   );
 }

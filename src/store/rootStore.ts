@@ -22,16 +22,19 @@ export type OptionalFormValues = PartialBy<FormValues, "lat" | "lng">;
 export type FormNames = keyof FormValues;
 
 export interface RootState {
-  modalVisible: boolean;
   openModal: () => void;
   dismissModal: () => void;
   chooseLocation: (event: LeafletMouseEvent) => void;
+  submit: () => void;
+  updateForm: (name: keyof FormValues, value: string) => void;
+  setSelectedInfo: (index: number) => void;
+
+  modalVisible: boolean;
   timezoneInfos: TimezoneInfo[];
   form: OptionalFormValues;
   timezoneInfo?: GeoapifyTimezone;
   fieldErrors: typeToFlattenedError<FormValues>["fieldErrors"];
-  updateForm: (name: keyof FormValues, value: string) => void;
-  submit: () => void;
+  selectedInfo: number;
 }
 
 export const defaultCenter: LatLngTuple = [24.02, 121.38];
@@ -114,6 +117,12 @@ export const useRootStore = create<RootState>()(
             timezone: state.timezoneInfo!,
           });
           state.modalVisible = false;
+        });
+      },
+      selectedInfo: -1,
+      setSelectedInfo: (index) => {
+        set((state) => {
+          state.selectedInfo = index;
         });
       },
     })),
