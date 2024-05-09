@@ -28,6 +28,7 @@ export interface RootState {
   submit: () => void;
   updateForm: (name: keyof FormValues, value: string) => void;
   setSelectedInfo: (index: number) => void;
+  toggleShowSeconds: () => void;
 
   modalVisible: boolean;
   timezoneInfos: TimezoneInfo[];
@@ -35,6 +36,7 @@ export interface RootState {
   timezoneInfo?: GeoapifyTimezone;
   fieldErrors: typeToFlattenedError<FormValues>["fieldErrors"];
   selectedInfo: number;
+  showSeconds: boolean;
 }
 
 export const defaultCenter: LatLngTuple = [24.02, 121.38];
@@ -125,6 +127,12 @@ export const useRootStore = create<RootState>()(
           state.selectedInfo = index;
         });
       },
+      toggleShowSeconds: () => {
+        set((state) => {
+          state.showSeconds = !state.showSeconds;
+        });
+      },
+      showSeconds: false,
     })),
     { name: "state" }
   )
