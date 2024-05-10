@@ -1,5 +1,5 @@
 import { MapContainer, TileLayer } from "react-leaflet";
-import { defaultCenter } from "../../store/rootStore";
+import { defaultCenter } from "../../store/shared";
 import MapClickDetector from "./MapClickDetector";
 
 interface LeafletMapProps {

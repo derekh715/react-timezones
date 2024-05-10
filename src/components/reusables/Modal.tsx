@@ -1,6 +1,7 @@
 import { MouseEventHandler } from "react";
 import { X } from "react-feather";
-import { ModalMode, useRootStore } from "../../store/rootStore";
+import { useRootStore } from "../../store/rootStore";
+import { ModalMode } from "../../store/types";
 
 interface ModalProps {
   children: JSX.Element | JSX.Element[];

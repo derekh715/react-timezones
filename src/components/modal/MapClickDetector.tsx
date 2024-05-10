@@ -6,19 +6,22 @@ import { useRootStore } from "../../store/rootStore";
 function MapClickDetector() {
   const { chooseLocation, position } = useRootStore((state) => {
     let position: LatLng | null = null;
+    let chooseLocation = null;
     if (state.modalMode === "add") {
       position =
-        !state.form.lat || !state.form.lng
+        !state.addForm.lat || !state.addForm.lng
           ? null
-          : new LatLng(state.form.lat, state.form.lng);
+          : new LatLng(state.addForm.lat, state.addForm.lng);
+      chooseLocation = state.chooseAddFormLocation;
     } else if (state.modalMode === "edit") {
       position =
         !state.editForm?.lat || !state.editForm?.lng
           ? null
           : new LatLng(state.editForm.lat, state.editForm.lng);
+      chooseLocation = state.chooseEditFormLocation;
     }
     return {
-      chooseLocation: state.chooseLocation,
+      chooseLocation,
       position,
     };
   });
@@ -32,7 +35,9 @@ function MapClickDetector() {
   }, [position]);
 
   useMapEvent("click", (event) => {
-    chooseLocation(event);
+    if (chooseLocation) {
+      chooseLocation(event);
+    }
   });
 
   if (!position) {

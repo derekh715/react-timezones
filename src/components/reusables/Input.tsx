@@ -1,4 +1,4 @@
-import { FormNames } from "../../store/rootStore";
+import { FormNames } from "../../store/types";
 
 type InputProps = {
   label: string;

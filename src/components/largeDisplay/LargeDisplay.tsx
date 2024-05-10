@@ -1,5 +1,5 @@
 import { Fragment } from "react/jsx-runtime";
-import { useSelectedInfo } from "../../store/rootStore";
+import { useSelectedInfo } from "../../store/hooks";
 import TimeDisplay from "../timezoneCards/CurrentTime";
 import DisplayControls from "./DisplayControls";
 import ViewInMapButton from "./ViewInMapButton";
