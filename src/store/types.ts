@@ -42,16 +42,19 @@ export interface AddFormSlice {
   chooseAddFormLocation: (event: LeafletMouseEvent) => void;
   updateForm: (name: keyof FormValues, value: string) => void;
   submit: () => void;
+  resetAdd: () => void;
 }
 
 export interface EditFormSlice {
   editFieldErrors: typeToFlattenedError<FormValues>["fieldErrors"];
   editTimezoneInfo?: GeoapifyTimezone;
+  savedEditTimezoneInfo?: GeoapifyTimezone;
   editForm: OptionalFormValues;
 
   chooseEditFormLocation: (event: LeafletMouseEvent) => void;
   updateEditForm: (name: keyof FormValues, value: string) => void;
   change: () => void;
+  resetEdit: () => void;
 }
 
 export interface SettingsSlice {

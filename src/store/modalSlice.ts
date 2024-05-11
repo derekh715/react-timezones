@@ -7,6 +7,9 @@ export const modalSlice: Slice<ModalSlice> = (set) => ({
       state.modalMode = mode;
       if (mode === "edit") {
         state.editForm = state.timezoneInfos[state.selectedInfo];
+        state.savedEditTimezoneInfo =
+          state.timezoneInfos[state.selectedInfo].timezone;
+        state.editTimezoneInfo = state.savedEditTimezoneInfo;
       }
     });
   },
@@ -14,8 +17,10 @@ export const modalSlice: Slice<ModalSlice> = (set) => ({
     set((state) => {
       if (state.modalMode === "add") {
         state.addForm = defaultFormState;
+        state.editTimezoneInfo = undefined;
       } else if (state.modalMode === "edit") {
         state.editForm = defaultFormState;
+        state.savedEditTimezoneInfo = undefined;
       }
       state.modalMode = "none";
       state.addTimezoneInfo = undefined;

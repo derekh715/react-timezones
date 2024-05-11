@@ -1,4 +1,4 @@
-import { chooseLocation } from "./shared";
+import { chooseLocation, defaultFormState } from "./shared";
 import { AddFormSlice, FormNames, Slice, formSchema } from "./types";
 
 export const addFormSlice: Slice<AddFormSlice> = (set) => ({
@@ -27,6 +27,7 @@ export const addFormSlice: Slice<AddFormSlice> = (set) => ({
       const result = formSchema.safeParse(state.addForm);
       if (!result.success) {
         state.addFieldErrors = result.error.flatten().fieldErrors;
+        return;
       }
       // add new result
       state.addFieldErrors = {};
@@ -35,6 +36,13 @@ export const addFormSlice: Slice<AddFormSlice> = (set) => ({
         timezone: state.addTimezoneInfo!,
       });
       state.modalMode = "none";
+    });
+  },
+  resetAdd: () => {
+    set((state) => {
+      state.addFieldErrors = {};
+      state.addForm = defaultFormState;
+      state.addTimezoneInfo = undefined;
     });
   },
 });

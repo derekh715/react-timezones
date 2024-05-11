@@ -26,6 +26,7 @@ export const editFormSlice: Slice<EditFormSlice> = (set) => ({
       const result = formSchema.safeParse(state.editForm);
       if (!result.success) {
         state.editFieldErrors = result.error.flatten().fieldErrors;
+        return;
       }
       // add new result
       state.timezoneInfos[state.selectedInfo] = {
@@ -33,6 +34,13 @@ export const editFormSlice: Slice<EditFormSlice> = (set) => ({
         timezone: state.editTimezoneInfo!,
       };
       state.modalMode = "none";
+    });
+  },
+  resetEdit: () => {
+    set((state) => {
+      state.editFieldErrors = {};
+      state.editForm = state.timezoneInfos[state.selectedInfo];
+      state.editTimezoneInfo = state.savedEditTimezoneInfo;
     });
   },
 });
