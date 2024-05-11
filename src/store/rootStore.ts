@@ -10,13 +10,15 @@ import { RootSlice } from "./types";
 
 export const useRootStore = create<RootSlice>()(
   persist(
-    immer((...a) => ({
-      ...addFormSlice(...a),
-      ...editFormSlice(...a),
-      ...modalSlice(...a),
-      ...settingsSlice(...a),
-      ...infoSlice(...a),
-    })),
+    immer((...a) => {
+      return {
+        ...addFormSlice(...a),
+        ...editFormSlice(...a),
+        ...modalSlice(...a),
+        ...settingsSlice(...a),
+        ...infoSlice(...a),
+      };
+    }),
     { name: "state" }
   )
 );

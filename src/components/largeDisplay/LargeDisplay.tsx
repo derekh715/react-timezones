@@ -7,7 +7,7 @@ import ViewInMapButton from "./ViewInMapButton";
 function LargeDisplay() {
   const selectedInfo = useSelectedInfo();
   return (
-    <div className="min-h-64 rounded-lg text-white p-20 my-12 animate-move-up bg-gradient-to-br from-primary-600 to-primary-900 relative">
+    <div className="min-h-64 rounded-lg text-gray-100 p-20 my-12 animate-move-up bg-gradient-to-br from-primary-600 to-primary-900 relative dark:from-primary-400 dark:to-primary-800">
       {selectedInfo ? (
         <Fragment>
           <h2 className="text-5xl font-bold mb-12">

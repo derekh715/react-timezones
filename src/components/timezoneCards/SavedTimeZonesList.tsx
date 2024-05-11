@@ -6,7 +6,7 @@ function SavedTimeZonesList() {
   const { timezoneInfos, selectedInfo } = useRootStore();
   return (
     <div>
-      <h2 className="text-3xl font-bold mb-4 animate-move-up">
+      <h2 className="text-3xl font-bold mb-4 animate-move-up dark:text-gray-100">
         Saved Timezones
       </h2>
       <div className="grid grid-cols-4 gap-4">

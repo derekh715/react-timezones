@@ -56,8 +56,10 @@ export interface EditFormSlice {
 
 export interface SettingsSlice {
   showSeconds: boolean;
+  darkMode: boolean;
 
   toggleShowSeconds: () => void;
+  toggleDarkMode: () => void;
 }
 
 export interface InfoSlice {
