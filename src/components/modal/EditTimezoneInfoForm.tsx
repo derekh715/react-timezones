@@ -1,3 +1,4 @@
+import { useEditManually } from "../../hooks/useEditManually";
 import { useRootStore } from "../../store/rootStore";
 import Button from "../reusables/Button";
 import ButtonGroup from "../reusables/ButtonGroup";
@@ -13,13 +14,14 @@ function EditTimezoneInfoForm() {
     editTimezoneInfo,
     resetEdit,
   } = useRootStore();
+  const { checkbox, canEditManually } = useEditManually();
 
   return (
     <form className="col-start-3 col-end-4">
       <Input
         label="Country Name"
         name="country"
-        disabled
+        disabled={!canEditManually}
         value={editForm?.country}
         errors={editFieldErrors.country}
         handleChange={(value) => updateEditForm("country", value)}
@@ -27,7 +29,7 @@ function EditTimezoneInfoForm() {
       <Input
         label="City Name"
         name="city"
-        disabled
+        disabled={!canEditManually}
         value={editForm?.city}
         errors={editFieldErrors.city}
         handleChange={(value) => updateEditForm("city", value)}
@@ -48,6 +50,7 @@ function EditTimezoneInfoForm() {
         errors={editFieldErrors.lng}
         handleChange={(value) => updateEditForm("lng", value)}
       />
+      {checkbox}
       <TimezoneInfoDisplay geoapifyTimezone={editTimezoneInfo} />
       <ButtonGroup>
         <Button
