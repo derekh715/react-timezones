@@ -6,8 +6,10 @@ export const useEditManually = () => {
     <div className="flex gap-2 items-center">
       <input
         type="checkbox"
-        onClick={toggle}
-        checked={canEditManually}
+        onChange={() => {
+          toggle();
+        }}
+        defaultChecked={canEditManually}
         name="edit_manually"
         className="size-4"
       />
