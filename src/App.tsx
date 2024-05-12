@@ -1,6 +1,7 @@
 import "leaflet/dist/leaflet.css";
 import { Fragment } from "react";
 import LargeDisplay from "./components/largeDisplay/LargeDisplay";
+import LargeMap from "./components/largeMap/LargeMap";
 import Nav from "./components/layout/Nav";
 import EditTimezoneInfoModal from "./components/modal/EditTimezoneInfoModal";
 import TimezoneInfoModal from "./components/modal/TimezoneInfoModal";
@@ -13,6 +14,7 @@ function App() {
       <Nav />
       <LargeDisplay />
       <SavedTimeZonesList />
+      <LargeMap />
       <TimezoneInfoModal />
       <EditTimezoneInfoModal />
     </Fragment>
