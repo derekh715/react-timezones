@@ -4,6 +4,7 @@ export interface TimezoneInfo {
   lat: number;
   lng: number;
   timezone: GeoapifyTimezone;
+  note: string;
 }
 
 export type GeoapifyReverseResponse = {

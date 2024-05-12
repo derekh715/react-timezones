@@ -7,6 +7,7 @@ export const addFormSlice: Slice<AddFormSlice> = (set) => ({
     lng: undefined,
     country: "",
     city: "",
+    note: "",
   },
   addFieldErrors: {},
 

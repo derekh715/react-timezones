@@ -17,6 +17,7 @@ function LargeDisplay() {
             className="text-4xl font-extrabold mb-8"
             info={selectedInfo}
           />
+          <p className="mb-4 text-lg font-semibold">{selectedInfo.note}</p>
           <ViewInMapButton />
           <DisplayControls />
         </Fragment>

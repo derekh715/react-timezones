@@ -18,22 +18,24 @@ function EditTimezoneInfoForm() {
 
   return (
     <form className="col-start-3 col-end-4">
-      <Input
-        label="Country Name"
-        name="country"
-        disabled={!canEditManually}
-        value={editForm?.country}
-        errors={editFieldErrors.country}
-        handleChange={(value) => updateEditForm("country", value)}
-      />
-      <Input
-        label="City Name"
-        name="city"
-        disabled={!canEditManually}
-        value={editForm?.city}
-        errors={editFieldErrors.city}
-        handleChange={(value) => updateEditForm("city", value)}
-      />
+      <div className="grid grid-cols-2 gap-4">
+        <Input
+          label="Country Name"
+          name="country"
+          disabled={!canEditManually}
+          value={editForm?.country}
+          errors={editFieldErrors.country}
+          handleChange={(value) => updateEditForm("country", value)}
+        />
+        <Input
+          label="City Name"
+          name="city"
+          disabled={!canEditManually}
+          value={editForm?.city}
+          errors={editFieldErrors.city}
+          handleChange={(value) => updateEditForm("city", value)}
+        />
+      </div>
       <Input
         label="Latitude"
         name="lat"
@@ -49,6 +51,13 @@ function EditTimezoneInfoForm() {
         value={editForm?.lng?.toString()}
         errors={editFieldErrors.lng}
         handleChange={(value) => updateEditForm("lng", value)}
+      />
+      <Input
+        label="Extra Note"
+        name="note"
+        value={editForm?.note}
+        errors={editFieldErrors.note}
+        handleChange={(value) => updateEditForm("note", value)}
       />
       {checkbox}
       <TimezoneInfoDisplay geoapifyTimezone={editTimezoneInfo} />

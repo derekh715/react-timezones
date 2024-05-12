@@ -8,6 +8,7 @@ export const formSchema = z.object({
   lng: z.number().gte(-180).lte(180),
   country: z.string().min(1),
   city: z.string().min(1),
+  note: z.string().optional(),
 });
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;

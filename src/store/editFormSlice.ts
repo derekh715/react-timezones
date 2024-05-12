@@ -7,6 +7,7 @@ export const editFormSlice: Slice<EditFormSlice> = (set) => ({
     lng: undefined,
     country: "",
     city: "",
+    note: "",
   },
   editFieldErrors: {},
   chooseEditFormLocation: (event) => chooseLocation(event, set),

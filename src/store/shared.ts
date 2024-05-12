@@ -34,6 +34,7 @@ export const defaultFormState: OptionalFormValues = {
   lng: undefined,
   country: "",
   city: "",
+  note: "",
 };
 export function defaultOrLatLng(state: RootSlice) {
   return new LatLng(
