@@ -1,4 +1,4 @@
-import { Moon, Sun } from "react-feather";
+import { GitHub, Moon, Sun } from "react-feather";
 import { useRootStore } from "../../store/rootStore";
 
 function Nav() {
@@ -11,7 +11,10 @@ function Nav() {
           Timezones
         </span>
       </h1>
-      <div className="flex items-center">
+      <div className="flex items-center gap-4">
+        <a href={import.meta.env.VITE_GITHUB_REPO}>
+          <GitHub className="size-8 cursor-pointer hover:opacity-70 text-gray-900 dark:text-gray-100" />
+        </a>
         {darkMode ? (
           <Sun
             className="size-8 cursor-pointer hover:opacity-70 transition-opacity text-gray-100"
