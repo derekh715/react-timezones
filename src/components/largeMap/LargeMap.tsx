@@ -9,7 +9,7 @@ function LargeMap() {
       <MapContainer
         zoom={7}
         scrollWheelZoom={false}
-        className="w-full min-h-[28rem]"
+        className="w-full min-h-[28rem] z-0"
         center={defaultCenter}
       >
         <MapMarker />

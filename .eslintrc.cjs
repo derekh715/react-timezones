@@ -14,6 +14,6 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
-    quotes: ["double", { avoidEscape: true }],
+    quotes: [1, "double", { avoidEscape: true }],
   },
 };

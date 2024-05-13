@@ -32,7 +32,7 @@ function MapClickDetector() {
     if (position) {
       map.setView(position);
     }
-  }, [position]);
+  }, [position, map]);
 
   useMapEvent("click", (event) => {
     if (chooseLocation) {

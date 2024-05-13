@@ -7,7 +7,7 @@ import { defaultCenter } from "../../store/shared";
 function MapMarker() {
   const selectedInfo = useSelectedInfo();
 
-  let position = useMemo(() => {
+  const position = useMemo(() => {
     if (selectedInfo) {
       return new LatLng(selectedInfo.lat, selectedInfo.lng);
     } else {
@@ -21,7 +21,7 @@ function MapMarker() {
     if (position) {
       map.setView(position, 7);
     }
-  }, [position]);
+  }, [position, map]);
 
   if (selectedInfo) {
     return <Marker position={position}></Marker>;
