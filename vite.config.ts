@@ -9,4 +9,5 @@ export default defineConfig({
   resolve: {
     mainFields: [],
   },
+  base: "/react-timezones",
 });
