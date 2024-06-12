@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Timezones</title>
+    <script>
+      try {
+        const isDarkMode = JSON.parse(localStorage.getItem("state")).state
+          .darkMode;
+        if (
+          isDarkMode ||
+          (!("theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      } catch {}
+    </script>
+    <script type="module" crossorigin src="/react-timezones/assets/index-Bsk1gDpA.js"></script>
+    <link rel="stylesheet" crossorigin href="/react-timezones/assets/index-zK5YkeEj.css">
+  </head>
+  <body class="p-5 bg-gray-100 dark:bg-slate-800">
+    <div id="root"></div>
+  </body>
+</html>
