@@ -35,6 +35,12 @@ jobs:
         with:
           node-version: 22
           cache: "npm"
+      - name: Make Envfile
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_VITE_GITHUB_REPO: ${{ secrets.VITE_GITHUB_REPO }}
+          envkey_VITE_GEOAPIFY_KEY: ${{ secrets.VITE_GEOAPIFY_KEY }}
+          fail_on_empty: true
       - name: Install dependencies
         run: npm install
       - name: Build
